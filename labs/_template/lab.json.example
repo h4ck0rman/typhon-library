@@ -1,0 +1,27 @@
+{
+  "id": "sqli-01-example-lab",
+  "name": "Example Lab",
+  "category": "sqli",
+  "subcategory": "basic",
+  "difficulty": "apprentice",
+  "description": "A short description of the lab (1-2 sentences).",
+  "briefing": "The full briefing shown to the user when they start the lab. Set the scene and establish the scenario.",
+  "objective": "A clear statement of what the user needs to accomplish.",
+  "tags": ["example-tag", "another-tag"],
+  "dbEngine": "mysql",
+  "appTheme": "e-commerce",
+  "internalPort": 8080,
+  "flag": {
+    "type": "static",
+    "value": "TYPHON{replace_with_your_flag}"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 15,
+  "prerequisites": [],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}
