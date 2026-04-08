@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-01-example-lab",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "A vague hint that points the user in the right direction."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "A slightly more specific hint about the technique."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "A concrete suggestion for what to try."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Nearly spells out the answer."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "The exact steps or payload to solve the lab."
+    }
+  ]
+}

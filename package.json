@@ -1,0 +1,17 @@
+{
+  "name": "typhon-library",
+  "version": "1.0.0",
+  "description": "Public lab library for the Typhon CTF platform",
+  "type": "module",
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "validate": "tsx scripts/validate.ts",
+    "serve": "tsx scripts/serve.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0",
+    "zod": "^3.23.0",
+    "@types/node": "^22.0.0"
+  }
+}
