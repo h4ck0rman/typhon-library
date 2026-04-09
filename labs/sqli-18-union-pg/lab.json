@@ -1,0 +1,27 @@
+{
+  "id": "sqli-18-union-pg",
+  "name": "PostgreSQL Job Board Leak",
+  "category": "sqli",
+  "subcategory": "union",
+  "difficulty": "practitioner",
+  "description": "A PostgreSQL-backed job board is vulnerable to UNION-based injection. Leverage PostgreSQL-specific catalog tables to discover and extract the flag.",
+  "briefing": "HireWave, a tech job board running on PostgreSQL, has a job search feature that's vulnerable to SQL injection. Unlike MySQL, PostgreSQL uses pg_catalog instead of information_schema (or both). Navigate PostgreSQL's system catalogs — pg_tables, pg_class, pg_attribute — to discover a hidden table containing the flag.",
+  "objective": "Use UNION-based SQL injection with PostgreSQL-specific system catalogs to find the hidden table and extract the flag.",
+  "tags": ["sql-injection", "union", "postgresql", "pg-catalog", "intermediate"],
+  "dbEngine": "postgresql",
+  "appTheme": "job-board",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 25,
+  "prerequisites": ["sqli-02-union-products"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

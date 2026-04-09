@@ -1,0 +1,10 @@
+{
+  "name": "sqli-17-auth-bypass-cookie",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "cookie-parser": "^1.4.6",
+    "mysql2": "^3.6.0"
+  }
+}

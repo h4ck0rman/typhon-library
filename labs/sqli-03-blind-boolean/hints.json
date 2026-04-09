@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-03-blind-boolean",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The lookup only tells you 'found' or 'not found'. Can you inject conditions that change which response you get? That boolean difference is your data channel."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "Try an employee ID you know exists (like 1) and append AND conditions. For example: 1 AND 1=1 should return 'found', while 1 AND 1=2 should return 'not found'. If that works, you have boolean injection."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Use SUBSTRING() and ASCII() to test individual characters of the flag. For example: 1 AND ASCII(SUBSTRING((SELECT value FROM secrets LIMIT 1),1,1))>64 — adjust the threshold with binary search to find each character."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Write a script that iterates over each character position and uses binary search on the ASCII value. For position N, test: 1 AND ASCII(SUBSTRING((SELECT value FROM secrets LIMIT 1),N,1))>M. Narrow down M between 32 and 126 for each position. Stop when SUBSTRING returns empty (length check)."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Python script approach: 1) First find flag length: 1 AND (SELECT LENGTH(value) FROM secrets LIMIT 1)=N — iterate N until 'found'. 2) For each position 1..N, binary search ASCII value: send GET /lookup?id=1 AND ASCII(SUBSTRING((SELECT value FROM secrets LIMIT 1),{pos},1))>{mid}. If 'found', search upper half; if 'not found', search lower half. 3) Convert ASCII values to characters and concatenate the flag."
+    }
+  ]
+}

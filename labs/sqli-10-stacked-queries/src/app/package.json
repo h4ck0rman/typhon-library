@@ -1,0 +1,10 @@
+{
+  "name": "sqli-10-stacked-queries",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "pg": "^8.12.0"
+  }
+}

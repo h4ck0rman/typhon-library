@@ -1,0 +1,27 @@
+{
+  "id": "sqli-05-error-based",
+  "name": "Verbose Bookstore",
+  "category": "sqli",
+  "subcategory": "error-based",
+  "difficulty": "practitioner",
+  "description": "An online bookstore leaks MySQL error messages. Use error-based SQL injection techniques like EXTRACTVALUE or UPDATEXML to exfiltrate the flag.",
+  "briefing": "PageTurn Books has a search feature that displays verbose database errors when something goes wrong. While UNION-based injection appears blocked by a simple keyword filter, the detailed error messages may provide an alternative data exfiltration channel. A 'credentials' table in the database is said to contain the flag.",
+  "objective": "Use error-based SQL injection to extract the flag from the credentials table via MySQL error messages.",
+  "tags": ["sql-injection", "error-based", "extractvalue", "mysql", "intermediate"],
+  "dbEngine": "mysql",
+  "appTheme": "bookstore",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 20,
+  "prerequisites": ["sqli-04-basic-select"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

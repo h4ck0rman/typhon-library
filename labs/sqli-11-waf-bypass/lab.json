@@ -1,0 +1,27 @@
+{
+  "id": "sqli-11-waf-bypass",
+  "name": "Filtered Search Evasion",
+  "category": "sqli",
+  "subcategory": "waf-bypass",
+  "difficulty": "expert",
+  "description": "A product catalog has a keyword-based WAF that blocks common SQL injection patterns. Bypass the filter using encoding tricks, alternative syntax, and case manipulation to extract the flag.",
+  "briefing": "NovaTech's product catalog has been hardened with an application-level WAF that blocks common SQL injection keywords: UNION, SELECT, FROM, WHERE, OR, AND, and comment sequences. However, the underlying query is still vulnerable. Use creative bypass techniques — inline comments, case variation, URL encoding, alternative MySQL syntax — to evade the filter and extract the flag from the 'waf_secrets' table.",
+  "objective": "Bypass the WAF keyword filter and perform SQL injection to extract the flag from the waf_secrets table.",
+  "tags": ["sql-injection", "waf-bypass", "filter-evasion", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "tech-catalog",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 40,
+  "prerequisites": ["sqli-02-union-products", "sqli-05-error-based"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

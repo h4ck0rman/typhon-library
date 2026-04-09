@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-10-stacked-queries",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "PostgreSQL lets you run multiple SQL statements separated by semicolons. The search field is injectable — can you append a second query?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "You're logged in as 'user' role but need 'admin'. The users table has a 'role' column. If you can run an UPDATE statement via stacked queries, you can change your own role."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "In the search field, close the current query and append an UPDATE: '; UPDATE users SET role='admin' WHERE username='guest'-- This will promote the guest user to admin."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Search for: '; UPDATE users SET role='admin' WHERE username='guest'-- Then navigate to the dashboard. You should now have admin access and can view the System Secrets section."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Log in as guest/guest. 2) In the task search field, enter: '; UPDATE users SET role='admin' WHERE username='guest'-- 3) Submit the search (it may error, that's okay). 4) Refresh the dashboard page. Your role should now be 'admin'. 5) The System Secrets section with the flag is now visible on the dashboard."
+    }
+  ]
+}

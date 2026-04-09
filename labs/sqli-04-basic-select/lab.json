@@ -1,0 +1,27 @@
+{
+  "id": "sqli-04-basic-select",
+  "name": "News Feed Leak",
+  "category": "sqli",
+  "subcategory": "basic",
+  "difficulty": "apprentice",
+  "description": "A news portal article viewer has a numeric ID parameter vulnerable to basic SQL injection. Manipulate the query to leak the flag.",
+  "briefing": "You've been hired to test PulseWire News, an online news aggregator. The article detail page takes an article ID as a URL parameter. You suspect the parameter is passed unsafely into a SQL query. A table called 'admin_notes' in the same database reportedly contains a flag left behind by a careless developer.",
+  "objective": "Exploit the article ID parameter to read data from the admin_notes table and retrieve the flag.",
+  "tags": ["sql-injection", "basic", "numeric-parameter", "mysql", "beginner"],
+  "dbEngine": "mysql",
+  "appTheme": "news-portal",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-06-blind-time",
+  "name": "Silent Ping Monitor",
+  "category": "sqli",
+  "subcategory": "blind-time",
+  "difficulty": "expert",
+  "description": "A server status monitor gives identical responses regardless of input. Use time-based blind SQL injection with SLEEP() to extract the flag by measuring response delays.",
+  "briefing": "IronGrid Systems runs a server health monitor that checks if a host ID exists in its database. The response is always the same generic status page — no difference between found and not found, and errors are fully suppressed. The only side channel available is time. A 'config' table is rumored to hold sensitive data. You'll need to use MySQL's SLEEP() function to create measurable delays that leak information one bit at a time.",
+  "objective": "Use time-based blind SQL injection to extract the flag from the config table by measuring response times.",
+  "tags": ["sql-injection", "blind", "time-based", "sleep", "mysql", "scripting"],
+  "dbEngine": "mysql",
+  "appTheme": "server-monitor",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 45,
+  "prerequisites": ["sqli-03-blind-boolean"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}
