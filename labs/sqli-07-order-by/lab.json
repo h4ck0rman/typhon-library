@@ -1,0 +1,27 @@
+{
+  "id": "sqli-07-order-by",
+  "name": "Sortable Scoreboard",
+  "category": "sqli",
+  "subcategory": "order-by",
+  "difficulty": "practitioner",
+  "description": "A gaming leaderboard lets users sort by different columns. The sort parameter is injected into an ORDER BY clause — exploit it to extract the flag.",
+  "briefing": "FragZone Gaming has a public leaderboard that supports sorting by various columns. The sort parameter appears to be placed directly into the ORDER BY clause of the SQL query. While you can't use UNION in an ORDER BY context, conditional expressions like IF() or CASE can leak data by changing the sort order. A 'flag_store' table holds the target.",
+  "objective": "Exploit the ORDER BY injection to extract the flag from the flag_store table using conditional sorting techniques.",
+  "tags": ["sql-injection", "order-by", "conditional", "mysql", "intermediate"],
+  "dbEngine": "mysql",
+  "appTheme": "gaming-leaderboard",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 30,
+  "prerequisites": ["sqli-04-basic-select"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-03-blind-boolean",
+  "name": "Blind Employee Lookup",
+  "category": "sqli",
+  "subcategory": "blind-boolean",
+  "difficulty": "expert",
+  "description": "An employee directory lookup returns only 'found' or 'not found'. Use blind boolean-based SQL injection to extract the flag character by character.",
+  "briefing": "You're conducting a penetration test against Vaultline Industries' internal employee directory. The lookup endpoint accepts an employee ID and returns only whether the employee exists or not — no data is displayed. However, you suspect the backend query is vulnerable to SQL injection. A table called 'secrets' is rumored to hold a flag. Since no data is reflected, you'll need to use blind boolean-based techniques to extract it one character at a time.",
+  "objective": "Use blind boolean-based SQL injection to extract the flag from the secrets table, character by character.",
+  "tags": ["sql-injection", "blind", "boolean-based", "mysql", "advanced", "scripting"],
+  "dbEngine": "mysql",
+  "appTheme": "employee-directory",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 45,
+  "prerequisites": ["sqli-01-login-bypass", "sqli-02-union-products"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

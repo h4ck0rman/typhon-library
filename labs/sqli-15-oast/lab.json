@@ -1,0 +1,27 @@
+{
+  "id": "sqli-15-oast",
+  "name": "Out-of-Band Exfiltration",
+  "category": "sqli",
+  "subcategory": "oast",
+  "difficulty": "expert",
+  "description": "No data is reflected and time-based techniques are blocked. Use out-of-band (OAST) techniques to exfiltrate the flag via DNS or HTTP requests from the database server to a webhook you control.",
+  "briefing": "ArcNet's inventory system has an endpoint vulnerable to SQL injection, but all in-band data channels are closed: no data is reflected, errors are suppressed, and the query has a forced timeout of 1 second (killing time-based approaches). However, the MySQL server can make outbound connections. Use out-of-band techniques — such as LOAD_FILE() with a UNC/URL path or DNS exfiltration via CONCAT with a domain lookup — to send the flag from the 'oast_secrets' table to a webhook endpoint you control. The lab includes a built-in webhook catcher at /webhook for convenience.",
+  "objective": "Use out-of-band SQL injection techniques to exfiltrate the flag to the built-in webhook catcher at /webhook.",
+  "tags": ["sql-injection", "oast", "out-of-band", "dns", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "inventory-system",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 45,
+  "prerequisites": ["sqli-03-blind-boolean", "sqli-14-file-access"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

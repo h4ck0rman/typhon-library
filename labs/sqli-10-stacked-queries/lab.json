@@ -1,0 +1,27 @@
+{
+  "id": "sqli-10-stacked-queries",
+  "name": "Task Manager Takeover",
+  "category": "sqli",
+  "subcategory": "stacked-queries",
+  "difficulty": "practitioner",
+  "description": "A task management app on PostgreSQL allows stacked queries through a vulnerable search endpoint. Execute a second statement to promote yourself to admin and access the flag.",
+  "briefing": "TaskForge is an internal project management tool running on PostgreSQL. The task search endpoint is vulnerable to SQL injection, and PostgreSQL natively supports multiple statements in a single query. While you can search for tasks, only admin users can view the 'System Secrets' section that contains the flag. Use stacked queries to modify your user role in the database, then access the restricted section.",
+  "objective": "Use stacked query injection to escalate your privileges to admin and access the flag in the System Secrets section.",
+  "tags": ["sql-injection", "stacked-queries", "postgresql", "privilege-escalation", "intermediate"],
+  "dbEngine": "postgresql",
+  "appTheme": "task-manager",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 20,
+  "prerequisites": ["sqli-04-basic-select"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

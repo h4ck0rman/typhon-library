@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-09-second-order",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The registration form is safe. But what happens after your data is stored? Is it always handled safely when it's used later?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The password reset reads your username from the database and uses it in an UPDATE query without parameterization. If your username contains SQL, it gets executed during password reset."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Register with a username that will break out of the UPDATE query. The reset query is: UPDATE users SET password='...' WHERE username='<your_stored_username>'. Craft a username that closes the WHERE clause and adds another statement or modifies the query."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Register with username: admin'-- This makes the reset UPDATE set the password for 'admin' (since everything after -- is commented out). Then log in as admin to see the flag on the dashboard."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Register with username: admin'-- and any password/email. 2) Log in with your new account (username: admin'--, password: your_password). 3) Go to password reset page and change password to something like 'hacked'. 4) The UPDATE becomes: UPDATE users SET password='hacked' WHERE username='admin'--'. This resets admin's password. 5) Log out and log in as admin/hacked. The admin dashboard displays the flag."
+    }
+  ]
+}

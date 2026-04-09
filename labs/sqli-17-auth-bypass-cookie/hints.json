@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-17-auth-bypass-cookie",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The login form is secure, but there's another entry point. Check the cookies — is there a 'remember me' token being sent?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The 'remember_token' cookie is used in: SELECT * FROM sessions WHERE token='COOKIE_VALUE'. If you set this cookie to a SQL injection payload, you can bypass the session lookup."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Set the remember_token cookie to: ' OR 1=1 LIMIT 1-- to match the first session in the database. Or target admin specifically: ' OR user_id=1--"
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use browser devtools or curl to set the cookie: remember_token=' OR user_id=(SELECT id FROM users WHERE username='admin')-- Then visit the main page — you should be authenticated as admin."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Open browser devtools > Application > Cookies. 2) Set cookie 'remember_token' to: ' OR user_id=1-- 3) Refresh the page. The SQL becomes: SELECT * FROM sessions WHERE token='' OR user_id=1--' which finds admin's session. 4) You're now logged in as admin and can see the flag in the inbox."
+    }
+  ]
+}

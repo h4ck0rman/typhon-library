@@ -1,0 +1,27 @@
+{
+  "id": "sqli-19-error-based-pg",
+  "name": "PostgreSQL Error Extraction",
+  "category": "sqli",
+  "subcategory": "error-based",
+  "difficulty": "practitioner",
+  "description": "A PostgreSQL-backed inventory system displays verbose error messages. Use CAST() type conversion errors to exfiltrate the flag one piece at a time.",
+  "briefing": "PartsBin, a warehouse inventory system running on PostgreSQL, leaks full error messages on the warehouse lookup page. UNION queries are blocked by a simple filter, but you can abuse PostgreSQL's strict type casting — forcing a string value into an integer via CAST() generates an error message that includes the string. The 'admin_config' table contains the flag.",
+  "objective": "Use PostgreSQL CAST() error-based injection to extract the flag from the admin_config table via error messages.",
+  "tags": ["sql-injection", "error-based", "postgresql", "cast", "type-coercion"],
+  "dbEngine": "postgresql",
+  "appTheme": "warehouse-inventory",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 20,
+  "prerequisites": ["sqli-05-error-based"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

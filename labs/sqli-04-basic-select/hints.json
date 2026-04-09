@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-04-basic-select",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Look at the URL when viewing an article. The ID parameter is passed directly to the database."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The query selects title, content, and author — 3 columns. You'll need a UNION with matching columns to pull data from another table."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Try: /article?id=0 UNION SELECT note,2,3 FROM admin_notes — using 0 ensures the original query returns nothing so only your injected row shows."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use /article?id=0 UNION SELECT note,2,3 FROM admin_notes LIMIT 1 to extract the flag from the admin_notes table."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Navigate to /article?id=0 UNION SELECT note,2,3 FROM admin_notes-- The admin_notes table has a 'note' column containing the flag. Using id=0 returns no real article, so the UNION result is displayed as the article title."
+    }
+  ]
+}

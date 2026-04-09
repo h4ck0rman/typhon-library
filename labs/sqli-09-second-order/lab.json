@@ -1,0 +1,27 @@
+{
+  "id": "sqli-09-second-order",
+  "name": "Stored Username Attack",
+  "category": "sqli",
+  "subcategory": "second-order",
+  "difficulty": "expert",
+  "description": "Registration is safely parameterized, but a password reset feature unsafely uses the stored username in a query. Register a malicious username, then trigger the second-order injection via password reset.",
+  "briefing": "CloudVault, a file hosting service, has a registration and password reset flow. The registration endpoint uses parameterized queries — direct injection won't work. However, the password reset feature retrieves the stored username from the database and concatenates it into an UPDATE query. Register an account with a carefully crafted username, then trigger the password reset to execute the second-order injection. The 'vault_secrets' table holds the flag.",
+  "objective": "Register a user with a malicious username, then exploit the password reset to perform second-order SQL injection and extract the flag.",
+  "tags": ["sql-injection", "second-order", "stored", "registration", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "cloud-storage",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 35,
+  "prerequisites": ["sqli-01-login-bypass", "sqli-08-insert-update"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

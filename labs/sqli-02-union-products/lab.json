@@ -1,0 +1,27 @@
+{
+  "id": "sqli-02-union-products",
+  "name": "Product Search Exploit",
+  "category": "sqli",
+  "subcategory": "union",
+  "difficulty": "practitioner",
+  "description": "An e-commerce product search is vulnerable to UNION-based SQL injection. Extract the flag from a hidden database table.",
+  "briefing": "During a security assessment of ByteMart, an online electronics store, you've found that the product search feature may be vulnerable to SQL injection. Intelligence suggests a hidden database table contains sensitive data, including a flag. Use UNION-based injection techniques to determine the database structure and extract the flag.",
+  "objective": "Use UNION-based SQL injection on the product search to discover and extract the flag from a hidden table in the database.",
+  "tags": ["sql-injection", "union", "data-extraction", "mysql", "e-commerce"],
+  "dbEngine": "mysql",
+  "appTheme": "e-commerce",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 25,
+  "prerequisites": ["sqli-01-login-bypass"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-16-os-command",
+  "name": "Webshell via INTO OUTFILE",
+  "category": "sqli",
+  "subcategory": "os-command",
+  "difficulty": "expert",
+  "description": "A PostgreSQL instance with the COPY command available. Use SQL injection to write a command output to a readable location and exfiltrate the flag from an environment variable.",
+  "briefing": "SysForge, a DevOps monitoring tool running on PostgreSQL, has a metrics endpoint vulnerable to SQL injection. The PostgreSQL server is configured with superuser access and can execute system commands via the COPY ... PROGRAM directive. The flag is stored in a file at /var/flag.txt accessible to the postgres user. Use stacked queries to execute a COPY command that reads the file contents into a table, then extract it.",
+  "objective": "Use SQL injection to leverage PostgreSQL's COPY PROGRAM to read /var/flag.txt and display the flag.",
+  "tags": ["sql-injection", "os-command", "postgresql", "copy-program", "advanced"],
+  "dbEngine": "postgresql",
+  "appTheme": "devops-monitor",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 35,
+  "prerequisites": ["sqli-10-stacked-queries", "sqli-14-file-access"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

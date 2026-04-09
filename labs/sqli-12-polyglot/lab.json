@@ -1,0 +1,27 @@
+{
+  "id": "sqli-12-polyglot",
+  "name": "Multi-Context Injection",
+  "category": "sqli",
+  "subcategory": "polyglot",
+  "difficulty": "expert",
+  "description": "User input is used in multiple different SQL query contexts. Craft a single polyglot payload that works regardless of which context it lands in to extract the flag.",
+  "briefing": "DataPulse Analytics has a dashboard with a filter parameter that's used in multiple places: a WHERE clause string comparison, a numeric comparison, and a LIKE clause. The input goes to all three queries simultaneously, and you only see the combined results. A single syntax error in any query causes the whole page to fail. Craft a polyglot SQL injection payload — one string that is valid in all contexts — to extract the flag from the 'analytics_keys' table.",
+  "objective": "Craft a single polyglot SQL payload that works across multiple query contexts to extract the flag from the analytics_keys table.",
+  "tags": ["sql-injection", "polyglot", "multi-context", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "analytics-dashboard",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 40,
+  "prerequisites": ["sqli-05-error-based", "sqli-11-waf-bypass"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "sqli-01-login-bypass",
+  "name": "Login Bypass",
+  "category": "sqli",
+  "subcategory": "auth-bypass",
+  "difficulty": "apprentice",
+  "description": "A corporate portal with a vulnerable login form. Bypass authentication using a classic SQL injection to retrieve the flag.",
+  "briefing": "You've discovered an internal employee portal for Nexus Corp during a penetration test. The login page appears to use a backend database for authentication. Your goal is to bypass the login form and access the admin dashboard, where a confidential flag is stored. The developers appear to have taken no precautions against SQL injection.",
+  "objective": "Bypass the login form using SQL injection to access the admin dashboard and retrieve the flag.",
+  "tags": ["sql-injection", "authentication", "login-bypass", "mysql", "beginner"],
+  "dbEngine": "mysql",
+  "appTheme": "corporate-portal",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 10,
+  "prerequisites": [],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

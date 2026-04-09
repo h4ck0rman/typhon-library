@@ -1,0 +1,27 @@
+{
+  "id": "sqli-14-file-access",
+  "name": "File Read via LOAD_FILE",
+  "category": "sqli",
+  "subcategory": "file-access",
+  "difficulty": "expert",
+  "description": "A MySQL instance running with FILE privilege allows reading server files via LOAD_FILE(). Use SQL injection to read the flag from a file on the filesystem.",
+  "briefing": "MedVault, a medical records portal, has a patient lookup feature vulnerable to SQL injection. The MySQL server is running with FILE privilege enabled, and the flag has been written to /var/flag.txt on the database container. Use MySQL's LOAD_FILE() function through SQL injection to read the file contents directly from the filesystem.",
+  "objective": "Use SQL injection with LOAD_FILE() to read the flag from /var/flag.txt on the server.",
+  "tags": ["sql-injection", "file-access", "load-file", "mysql", "advanced"],
+  "dbEngine": "mysql",
+  "appTheme": "medical-portal",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 25,
+  "prerequisites": ["sqli-02-union-products"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

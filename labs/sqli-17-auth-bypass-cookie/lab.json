@@ -1,0 +1,27 @@
+{
+  "id": "sqli-17-auth-bypass-cookie",
+  "name": "Cookie-Based Auth Bypass",
+  "category": "sqli",
+  "subcategory": "auth-bypass",
+  "difficulty": "practitioner",
+  "description": "A 'remember me' cookie is used in a SQL query to restore user sessions. Forge the cookie value with SQL injection to bypass authentication and access the admin panel.",
+  "briefing": "SparkMail, a webmail client, has a 'remember me' feature that stores a session token in a cookie. When the user revisits, the app uses this cookie value directly in a SQL query to look up the session. The login form itself is properly parameterized, but the cookie-based session restoration is vulnerable. Forge a malicious cookie value to bypass authentication and access the admin mailbox, which contains the flag.",
+  "objective": "Exploit the vulnerable cookie-based session lookup to bypass authentication and read the flag in the admin mailbox.",
+  "tags": ["sql-injection", "auth-bypass", "cookie", "session", "mysql", "intermediate"],
+  "dbEngine": "mysql",
+  "appTheme": "webmail",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 20,
+  "prerequisites": ["sqli-01-login-bypass"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}

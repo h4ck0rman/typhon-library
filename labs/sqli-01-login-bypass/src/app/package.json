@@ -1,0 +1,9 @@
+{
+  "name": "sqli-01-login-bypass",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0"
+  }
+}

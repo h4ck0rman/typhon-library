@@ -1,0 +1,30 @@
+{
+  "labId": "sqli-01-login-bypass",
+  "hints": [
+    {
+      "level": 1,
+      "title": "Nudge",
+      "content": "Think about how the login form might be checking credentials. What happens if the query logic can be altered?"
+    },
+    {
+      "level": 2,
+      "title": "Direction",
+      "content": "The login query likely looks like: SELECT * FROM users WHERE username='...' AND password='...'. What if you could make the WHERE clause always true?"
+    },
+    {
+      "level": 3,
+      "title": "Approach",
+      "content": "Try injecting a single quote into the username field to break out of the string. Then use an OR condition that always evaluates to true."
+    },
+    {
+      "level": 4,
+      "title": "Near-solution",
+      "content": "Use the username: ' OR 1=1 -- and any password. The -- comments out the rest of the query."
+    },
+    {
+      "level": 5,
+      "title": "Solution",
+      "content": "Enter ' OR 1=1 -- as the username and anything as the password. This modifies the SQL query to SELECT * FROM users WHERE username='' OR 1=1 --' AND password='...', which returns all users and logs you in as the first user (admin)."
+    }
+  ]
+}

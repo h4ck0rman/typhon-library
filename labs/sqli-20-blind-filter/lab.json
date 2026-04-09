@@ -1,0 +1,27 @@
+{
+  "id": "sqli-20-blind-filter",
+  "name": "Filtered Blind Extraction",
+  "category": "sqli",
+  "subcategory": "blind-boolean",
+  "difficulty": "expert",
+  "description": "A coupon validation endpoint returns only valid/invalid. Common SQL keywords and spaces are filtered. Bypass the filter using alternative syntax and extract the flag blind.",
+  "briefing": "DealZone, a coupon aggregation site, has a coupon validation endpoint that's vulnerable to SQL injection — but it returns only 'valid' or 'invalid', and an application-level filter blocks spaces, UNION, SELECT (as exact words), single-line comments (--), and the hash character. You need to combine WAF bypass techniques (inline comments for spaces, bracket notation, alternative comment styles) with blind boolean extraction to pull the flag from the 'promo_secrets' table character by character.",
+  "objective": "Bypass the keyword and space filter while performing blind boolean-based extraction to retrieve the flag from the promo_secrets table.",
+  "tags": ["sql-injection", "blind-boolean", "waf-bypass", "filter-evasion", "mysql", "expert"],
+  "dbEngine": "mysql",
+  "appTheme": "coupon-site",
+  "internalPort": 8080,
+  "flag": {
+    "type": "dynamic",
+    "derivation": "container-env"
+  },
+  "healthCheck": {
+    "path": "/",
+    "expectedStatus": 200
+  },
+  "youtubeUrl": null,
+  "estimatedMinutes": 50,
+  "prerequisites": ["sqli-03-blind-boolean", "sqli-11-waf-bypass"],
+  "author": "h4ck0rman",
+  "version": "1.0.0"
+}
